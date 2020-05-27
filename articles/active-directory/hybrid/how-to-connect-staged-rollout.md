@@ -127,17 +127,23 @@ Enable *seamless SSO* by doing the following:
 
 4. Run PowerShell as an administrator. In PowerShell, call `New-AzureADSSOAuthenticationContext`. This command opens a pane where you can enter your tenant's global administrator credentials.
 
-5. Call `Get-AzureADSSOStatus | ConvertFrom-Json`. This command displays a list of Active Directory forests (see the "Domains" list) on which this feature has been enabled. By default, it is set to false at the tenant level.
-
-   ![Example of the Windows PowerShell output](./media/how-to-connect-staged-rollout/sr3.png)
+5. Call `Get-AzureADSSOStatus | ConvertFrom-Json`. This command displays a list of Active Directory forests (see the "Domains" list) on which this feature has been enabled. By default, it is set to false at the tenant level.  The result should look similar to the following:\
+`Enable	      : False`\
+`Exists	      : False`\
+`Domains      : { }`\
+`IsSuccessful : True`\
+`ErrorMessage : `
 
 6. Call `$creds = Get-Credential`. At the prompt, enter the domain administrator credentials for the intended Active Directory forest.
 
 7. Call `Enable-AzureADSSOForest -OnPremCredentials $creds`. This command creates the AZUREADSSOACC computer account from the on-premises domain controller for the Active Directory forest that's required for *seamless SSO*.
 
-8. *Seamless SSO* requires URLs to be in the intranet zone. To deploy those URLs by using group policies, see [Quickstart: Azure AD seamless single sign-on](how-to-connect-sso-quick-start.md#step-3-roll-out-the-feature).
+8. Call `Get-AzureADSSOStatus`.  This command displays a list of Active Directory forests which have now been updated.
+   ![Example of the Windows PowerShell output](./media/how-to-connect-staged-rollout/sr3.png)
 
-9. For a complete walkthrough, you can also download our [deployment plans](https://aka.ms/SeamlessSSODPDownload) for *seamless SSO*.
+9. *Seamless SSO* requires URLs to be in the intranet zone. To deploy those URLs by using group policies, see [Quickstart: Azure AD seamless single sign-on](how-to-connect-sso-quick-start.md#step-3-roll-out-the-feature).
+
+10. For a complete walkthrough, you can also download our [deployment plans](https://aka.ms/SeamlessSSODPDownload) for *seamless SSO*.
 
 ## Enable staged rollout
 
